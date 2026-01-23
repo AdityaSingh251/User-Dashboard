@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token')
 if(!token){
-    window.location.href = 'https://userdashboardbytecodeproject.vercel.app/index.html'
+    window.location.href = 'https://user-dashboard-myappbackend.vercel.app/index.html'
 }
 
 const modal = document.getElementById('modal');
@@ -20,7 +20,7 @@ function closeModal(){
 }
 
 function navigate(id){
-    window.location.href = `https://userdashboardbytecodeproject.vercel.app/editUser.html?userId=${id}`
+    window.location.href = `https://user-dashboardmyappfrontend.vercel.app//editUser.html?userId=${id}`
 }
 
 form.addEventListener('submit', async function(e){
@@ -30,7 +30,7 @@ form.addEventListener('submit', async function(e){
     const password = passwordInput.value
     const role = roleInput.value
 
-    const response = await fetch('https://userdashboardbytecodeprojectbackend.vercel.app/create-user', {
+    const response = await fetch('https://user-dashboard-myappbackend.vercel.app/create-user', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -52,7 +52,7 @@ form.addEventListener('submit', async function(e){
 
 
 async function getAllUsers(){
-    const response = await fetch('https://userdashboardbytecodeprojectbackend.vercel.app/users')
+    const response = await fetch('https://user-dashboard-myappbackend.vercel.app/users')
     const data = await response.json();
     if(data.status === 'false'){
         return alert(`❌ ${data.err} ❌`)
@@ -63,7 +63,7 @@ async function getAllUsers(){
 async function deleteUser(id){
     if(!confirm('Are you sure you want to delete this user?')) return;
     
-    const response = await fetch(`https://userdashboardbytecodeprojectbackend.vercel.app/delete/${id}`, {
+    const response = await fetch(`https://user-dashboard-myappbackend.vercel.app/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -100,7 +100,7 @@ function generateHtml(arrayOfUsers){
 
 const logout = () => {
     localStorage.removeItem('token')
-    window.location.href = 'https://userdashboardbytecodeproject.vercel.app/index.html'
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/index.html'
 }
 
 getAllUsers()

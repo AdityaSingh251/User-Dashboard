@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token')
 if(token){
-    window.location.href = 'https://userdashboardbytecodeproject.vercel.app/manageUsers.html'
+    window.location.href = 'https://user-dashboard-myappbackend.vercel.app/manageUsers.html'
 }
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
@@ -10,7 +10,7 @@ form.addEventListener('submit', async function(e){
     e.preventDefault()
     const email = emailInput.value
     const password = passwordInput.value
-    const response = await fetch('https://userdashboardbytecodeprojectbackend.vercel.app/login', {
+    const response = await fetch('https://user-dashboard-myappbackend.vercel.app/login', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -24,7 +24,7 @@ form.addEventListener('submit', async function(e){
     }
     alert(data.message)
     localStorage.setItem('token', data.token)
-    window.location.href = 'https://userdashboardbytecodeproject.vercel.app/manageUsers.html'
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app//manageUsers.html'
     emailInput.value = ""
     passwordInput.value = ""
 })
