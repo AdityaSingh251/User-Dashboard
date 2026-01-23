@@ -1,9 +1,10 @@
+/*jshint esversion:8 */
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const User = require('./models/UserModel');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 8000;
 
@@ -18,53 +19,53 @@ mongoose.connect('mongodb+srv://dhruv:bytecodeproject@cluster0.fbayxdy.mongodb.n
     .then(() => console.log('Database Connected'))
     .catch((error) => console.log(error.message));
 
-const JWT_SECRET_KEY = 'absfkj327687g%^#$%^&*YHUVGHVBN'
+const JWT_SECRET_KEY = 'absfkj327687g%^#$%^&*YHUVGHVBN';
 
 app.get('/', function(req, res){
-    res.send("Server is running")
-})
+    res.send("Server is running");
+});
 
 app.post('/create-user', async function(req, res){
     try {
         const {name, email, password, role} = req.body;
         if(!name || !email || !password || !role){
-            return res.json({err: 'All fields are required', status: 'false'})
+            return res.json({err: 'All fields are required', status: 'false'});
         }
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const nayaUser = new User({
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
             name: name,
             email: email,
             password: hashedPassword,
             role: role
-        })
-        await nayaUser.save()
-        res.json({message: 'User saved successfully', status: 'true'})
+        });
+        await newUser.save();
+        res.json({message: 'User saved successfully', status: 'true'});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.get('/users' , async function(req, res){
     try {
         const allUsers = await User.find();
-        res.json({message: 'All users fetched successfuly', users: allUsers, status: 'true'})
+        res.json({message: 'All users fetched successfully', users: allUsers, status: 'true'});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.get('/user/:id' , async function(req, res){
     try {
         const {id} = req.params;
         const user = await User.findById(id);
         if(!user) {
-            return res.json({err: 'No user found', status: 'false'})
+            return res.json({err: 'No user found', status: 'false'});
         }
         res.json({message: 'All users fetched successfully', user, status: 'true'})
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.put('/update/:id', async function(req, res){
     try {
@@ -76,27 +77,27 @@ app.put('/update/:id', async function(req, res){
             password: password
         }, {new: true});
         if(!updatedUser){
-            res.json({err: 'Cannot able to edit user', status: 'false'})
+            res.json({err: 'Cannot able to edit user', status: 'false'});
         }
-        res.json({message: 'User updated successfully', status: 'true'})
+        res.json({message: 'User updated successfully', status: 'true'});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.delete('/delete/:id', async function(req, res) {
     try {
         const {id} = req.params;
-        console.log(id)
+        console.log(id);
         const deletedUser = await User.findByIdAndDelete(id);
         if(!deletedUser){
-            res.json({err: error.message, status: 'false'})
+            res.json({err: error.message, status: 'false'});
         }
-        res.json({message: 'User deleted successfully', status: 'true'})
+        res.json({message: 'User deleted successfully', status: 'true'});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.post('/signup', async function(req, res){
     try {
@@ -137,10 +138,10 @@ app.post('/login', async function(req, res){
             return res.json({err: 'Invalid password', status: 'false'})
         }
         const token = jwt.sign({id: user._id}, JWT_SECRET_KEY, {expiresIn: '7d'})
-        res.json({message: 'Login successfully', status: 'true', token})
+        res.json({message: 'Login successfully', status: 'true', token});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
-app.listen(PORT, () => console.log('Server is listening on Port: 8000'))
+app.listen(PORT, () => console.log('Server is listening on Port: 8000'));
