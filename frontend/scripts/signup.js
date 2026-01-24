@@ -29,7 +29,7 @@ form.addEventListener('submit', async function(e){
     }
     alert(data.message);
     localStorage.setItem('token', data.token);
-    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/frontend/manageUsers.html';
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
     nameInput.value = "";
     emailInput.value = "";
     passwordInput.value = "";
