@@ -25,7 +25,7 @@ form.addEventListener('submit', async function(e){
     }
     alert(data.message);
     localStorage.setItem('token', data.token);
-    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
-    emailInput.value = ""
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/frontend/manageUsers.html';
+    emailInput.value = "";
     passwordInput.value = "";
 });
