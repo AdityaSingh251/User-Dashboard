@@ -61,7 +61,7 @@ app.get('/user/:id' , async function(req, res){
         if(!user) {
             return res.json({err: 'No user found', status: 'false'});
         }
-        res.json({message: 'All users fetched successfully', user, status: 'true'})
+        res.json({message: 'All users fetched successfully', user, status: 'true'});
     } catch (error) {
         res.json({err: error.message, status: 'false'});
     }
@@ -103,41 +103,41 @@ app.post('/signup', async function(req, res){
     try {
         const {name, email, password} = req.body;
         if(!name || !email || !password){
-            return res.json({err: 'All fields are required', status: 'false'})
+            return res.json({err: 'All fields are required', status: 'false'});
         }
-        const user = await User.findOne({email})
+        const user = await User.findOne({email});
         if(user){
-            return res.json({err: 'User already exist', status: 'false'})
+            return res.json({err: 'User already exist', status: 'false'});
         }
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const nayaUser = new User({
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
             name: name,
             email: email,
             password: hashedPassword
-        })
-        await nayaUser.save()
-        const token = jwt.sign({id: nayaUser._id}, JWT_SECRET_KEY, {expiresIn: '7d'})
-        res.json({message: 'Signup successfully', status: 'true', token})
+        });
+        await newUser.save();
+        const token = jwt.sign({id: newUser._id}, JWT_SECRET_KEY, {expiresIn: '7d'});
+        res.json({message: 'Signup successfully', status: 'true', token});
     } catch (error) {
-        res.json({err: error.message, status: 'false'})
+        res.json({err: error.message, status: 'false'});
     }
-})
+});
 
 app.post('/login', async function(req, res){
     try {
         const {email, password} = req.body;
         if(!email || !password){
-            return res.json({err: 'All fields are required', status: 'false'})
+            return res.json({err: 'All fields are required', status: 'false'});
         }
         const user = await User.findOne({email});
         if(!user){
-            return res.json({err: 'No user found', status: 'false'})
+            return res.json({err: 'No user found', status: 'false'});
         }
-        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if(!isPasswordCorrect){
-            return res.json({err: 'Invalid password', status: 'false'})
+            return res.json({err: 'Invalid password', status: 'false'});
         }
-        const token = jwt.sign({id: user._id}, JWT_SECRET_KEY, {expiresIn: '7d'})
+        const token = jwt.sign({id: user._id}, JWT_SECRET_KEY, {expiresIn: '7d'});
         res.json({message: 'Login successfully', status: 'true', token});
     } catch (error) {
         res.json({err: error.message, status: 'false'});

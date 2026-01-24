@@ -1,15 +1,16 @@
-const token = localStorage.getItem('token')
+/* jshint esversion:8 */
+const token = localStorage.getItem('token');
 if(token){
-    window.location.href = 'https://user-dashboard-myappbackend.vercel.app/manageUsers.html'
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
 }
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async function(e){
-    e.preventDefault()
-    const email = emailInput.value
-    const password = passwordInput.value
+    e.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
     const response = await fetch('https://user-dashboard-myappbackend.vercel.app/login', {
         method: 'POST',
         headers: {
@@ -17,14 +18,14 @@ form.addEventListener('submit', async function(e){
         },
         credentials: 'include',
         body: JSON.stringify({email, password})
-    })
+    });
     const data = await response.json();
     if(data.status === 'false'){
-        return alert(`❌ ${data.err} ❌`)
+        return alert(`❌ ${data.err} ❌`);
     }
-    alert(data.message)
-    localStorage.setItem('token', data.token)
-    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app//manageUsers.html'
-    emailInput.value = ""
-    passwordInput.value = ""
-})
+    alert(data.message);
+    localStorage.setItem('token', data.token);
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
+    emailInput.value = "";
+    passwordInput.value = "";
+});

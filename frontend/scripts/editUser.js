@@ -11,7 +11,7 @@ const value = params.get("userId");
 
 
 async function getUserById(id){
-    const response = await fetch(`https://user-dashboard-myappbackend.vercel.app//user/${id}`);
+    const response = await fetch(`https://user-dashboard-myappbackend.vercel.app/user/${id}`);
     const data = await response.json();
     if(data.status === 'false'){
         return alert(`❌ ${data.err} ❌`);
@@ -41,7 +41,7 @@ form.addEventListener('submit', async function(e){
         return alert(`❌ ${data.err} ❌`);
     }
     alert(data.message);
-    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app//manageUsers.html';
+    window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
 });
 
 
