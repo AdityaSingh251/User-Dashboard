@@ -9,7 +9,7 @@ const app = express();
 const PORT = 8000;
 
 app.use(cors({
-    origin: 'https://user-dashboardmyappfrontend.vercel.app',
+    origin: 'https://user-dashboard-myappfrontend.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true
 }));
