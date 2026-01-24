@@ -1,7 +1,7 @@
 /* jshint esversion:8 */
 const token = localStorage.getItem('token');
 if(token){
-    window.location.href = 'https://user-dashboard-myappfrontend.vercel.app/manageUsers.html';
+    window.location.href = 'https://user-dashboard-myappbackend.vercel.app/manageUsers.html';
 }
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
@@ -26,6 +26,6 @@ form.addEventListener('submit', async function(e){
     alert(data.message);
     localStorage.setItem('token', data.token);
     window.location.href = 'https://user-dashboardmyappfrontend.vercel.app/manageUsers.html';
-    emailInput.value = "";
+    emailInput.value = ""
     passwordInput.value = "";
 });
